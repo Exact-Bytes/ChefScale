@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome_page.dart';
+import 'home_page.dart';
 import 'create_account.dart';
 
 void main() {
@@ -13,10 +14,13 @@ class ChefScaleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Chef Scale',
-      home: const WelcomePage(), // Starts with Welcome Page
+      initialRoute: '/',
       routes: {
-        '/create_account': (context) => const CreateAccountPage(), // Route for Create Account Page
+        '/': (context) => const WelcomePage(),
+        '/home': (context) => const HomePage(), // HomePage Route
+        '/create_account':
+            (context) =>
+                const CreateAccountPage(), // Define your CreateAccountPage
       },
     );
   }
