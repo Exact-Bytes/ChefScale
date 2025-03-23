@@ -8,7 +8,8 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF3B1E54), // Dark Purple Background
-      body: Center( // Wrap in Center to align everything in the middle
+      body: Center(
+        // Wrap in Center to align everything in the middle
         child: Column(
           mainAxisSize: MainAxisSize.min, // Shrinks column to fit its content
           mainAxisAlignment: MainAxisAlignment.center,
