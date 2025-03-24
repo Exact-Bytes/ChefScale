@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'profile_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -21,10 +23,19 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(icon: const Icon(Icons.search, color: Colors.white), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.notifications, color: Colors.white), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {},
+          ),
         ],
-        leading: IconButton(icon: const Icon(Icons.menu, color: Colors.white), onPressed: () {}),
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {},
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -104,11 +115,19 @@ class HomePage extends StatelessWidget {
                 child: PageView.builder(
                   itemCount: _howItWorksSteps.length,
                   scrollDirection: Axis.horizontal,
-                  controller: PageController(viewportFraction: 0.85), // Viewport for partial next card
+                  controller: PageController(
+                    viewportFraction: 0.85,
+                  ), // Viewport for partial next card
                   onPageChanged: (index) {},
                   itemBuilder: (context, index) {
-                    final step = _howItWorksSteps[index % _howItWorksSteps.length]; // Looping
-                    return _buildHowItWorksCard(step['image']!, step['title']!, step['description']!);
+                    final step =
+                        _howItWorksSteps[index %
+                            _howItWorksSteps.length]; // Looping
+                    return _buildHowItWorksCard(
+                      step['image']!,
+                      step['title']!,
+                      step['description']!,
+                    );
                   },
                 ),
               ),
@@ -128,11 +147,33 @@ class HomePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Recipes"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
         ],
+        onTap: (index) {
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfilePage(),
+              ),
+            );
+          }
+          else {
+            // Handle other tab presses if needed.
+          }
+        },
       ),
     );
   }
@@ -173,7 +214,9 @@ class HomePage extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
             child: Image.asset(
               imagePath,
               height: 130,
@@ -197,7 +240,10 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   subtitle,
-                  style: GoogleFonts.poppins(fontSize: 12, color: Colors.black54),
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
                 ),
               ],
             ),
@@ -211,27 +257,27 @@ class HomePage extends StatelessWidget {
 // **How It Works Steps (Loopable)**
 final List<Map<String, String>> _howItWorksSteps = [
   {
-    "image": "assets/images/snap_photo.jpg",
+    "image": "assets/side1.png",
     "title": "Snap a Photo",
     "description": "Capture ingredients with one click.",
   },
   {
-    "image": "assets/images/upload_ingredients.jpg",
+    "image": "assets/side2.png",
     "title": "Upload Ingredients",
     "description": "Manually add ingredients for accuracy.",
   },
   {
-    "image": "assets/images/measurement.jpg",
+    "image": "assets/side3.png",
     "title": "Get Measurements",
     "description": "Receive precise measurements instantly.",
   },
   {
-    "image": "assets/images/recipe_suggestions.jpg",
+    "image": "assets/side4.png",
     "title": "Recipe Suggestions",
     "description": "Get smart recipe suggestions based on your ingredients.",
   },
   {
-    "image": "assets/images/save_favorite.jpg",
+    "image": "assets/side5.png",
     "title": "Save & Favorite",
     "description": "Save your favorite ingredients & recipes.",
   },

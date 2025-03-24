@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home_page.dart';
 
-void main() {
-  runApp(ProfilePage());
-}
+
+//void main() {
+//  runApp(ProfilePage());
+//}
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,6 +37,8 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileForm extends StatelessWidget {
+  const ProfileForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,6 +109,8 @@ class ProfileForm extends StatelessWidget {
 }
 
 class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -113,7 +121,11 @@ class BottomNavBar extends StatelessWidget {
         children: [
           IconButton(
             icon: Icon(Icons.home, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+               Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+           
           ),
           IconButton(
             icon: Icon(Icons.restaurant_menu, color: Colors.black),
