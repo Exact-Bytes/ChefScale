@@ -179,12 +179,10 @@ class CreateAccountPageState extends State<CreateAccountPage> {
       },
     );
 
-    if (pickedDate != null) {
-      setState(() {
-        _dobController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-      });
+    setState(() {
+      _dobController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+    });
     }
-  }
 
   void _validateAndSubmit() {
     if (_formKey.currentState!.validate()) {
