@@ -6,6 +6,8 @@ void main() {
 }
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,6 +35,8 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileForm extends StatelessWidget {
+  const ProfileForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,6 +107,8 @@ class ProfileForm extends StatelessWidget {
 }
 
 class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
