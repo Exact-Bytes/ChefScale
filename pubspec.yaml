@@ -94,3 +94,8 @@ flutter:
   assets:
     - assets/
     - assets/header.png
+    - assets/side1.png
+    - assets/side2.png
+    - assets/side3.png
+    - assets/side4.png
+    - assets/side5.png
