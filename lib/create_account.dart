@@ -11,7 +11,8 @@ class CreateAccountPage extends StatefulWidget {
 class CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _dobController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -43,7 +44,9 @@ class CreateAccountPageState extends State<CreateAccountPage> {
                 controller: _dobController,
                 style: const TextStyle(color: Colors.white),
                 readOnly: true,
-                validator: (value) => value!.isEmpty ? "Date of Birth is required" : null,
+                validator:
+                    (value) =>
+                        value!.isEmpty ? "Date of Birth is required" : null,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.black,
@@ -72,19 +75,29 @@ class CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                   child: Text(
                     "Create account",
-                    style: GoogleFonts.afacad(fontSize: 16, color: Colors.black),
+                    style: GoogleFonts.afacad(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               Row(
                 children: [
-                  const Expanded(child: Divider(color: Colors.white54, thickness: 1)),
+                  const Expanded(
+                    child: Divider(color: Colors.white54, thickness: 1),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text("OR", style: GoogleFonts.afacad(color: Colors.white)),
+                    child: Text(
+                      "OR",
+                      style: GoogleFonts.afacad(color: Colors.white),
+                    ),
                   ),
-                  const Expanded(child: Divider(color: Colors.white54, thickness: 1)),
+                  const Expanded(
+                    child: Divider(color: Colors.white54, thickness: 1),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -107,7 +120,10 @@ class CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                   child: Text(
                     "Back to Welcome",
-                    style: GoogleFonts.afacad(fontSize: 16, color: Colors.white),
+                    style: GoogleFonts.afacad(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -118,7 +134,11 @@ class CreateAccountPageState extends State<CreateAccountPage> {
     );
   }
 
-  Widget buildTextField(String label, TextEditingController controller, bool isPassword) {
+  Widget buildTextField(
+    String label,
+    TextEditingController controller,
+    bool isPassword,
+  ) {
     return TextFormField(
       controller: controller,
       style: const TextStyle(color: Colors.white),
@@ -129,9 +149,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         fillColor: Colors.black,
         labelText: label,
         labelStyle: GoogleFonts.afacad(color: Colors.white),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -154,9 +172,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         fillColor: Colors.black,
         labelText: "Confirm Password",
         labelStyle: GoogleFonts.afacad(color: Colors.white),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -172,7 +188,9 @@ class CreateAccountPageState extends State<CreateAccountPage> {
           data: ThemeData.dark().copyWith(
             primaryColor: const Color(0xFFD4BEE4),
             colorScheme: const ColorScheme.dark(primary: Color(0xFFD4BEE4)),
-            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
           ),
           child: child!,
         );
@@ -181,7 +199,8 @@ class CreateAccountPageState extends State<CreateAccountPage> {
 
     if (pickedDate != null) {
       setState(() {
-        _dobController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+        _dobController.text =
+            "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
       });
     }
   }
