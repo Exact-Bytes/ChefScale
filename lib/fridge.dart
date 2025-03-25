@@ -40,6 +40,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF3B1E54), // Background color of the screen
       appBar: AppBar(
         title: Text("Fridge", style: GoogleFonts.afacad(fontSize: 22, fontWeight: FontWeight.bold)),
         actions: [
@@ -52,6 +53,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
             onPressed: () {},
           ),
         ],
+        backgroundColor: Color(0xFF3B1E54), // Appbar background color
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -62,7 +64,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
           childAspectRatio: 1.2,
           children: categories.entries.map((entry) {
             return Card(
-              color: Colors.purple.shade800,
+              color: Color(0xFF9B7EBD), // Category box color
               margin: EdgeInsets.symmetric(vertical: 6.0),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
