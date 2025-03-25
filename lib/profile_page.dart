@@ -1,46 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home_page.dart';
+import 'package:myapp/camera_page.dart';
 
 void main() {
-  runApp(ProfilePage());
+  runApp(const ProfilePage());
 }
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Color(0xFF3B1E54),
-        body: Center(
+    return Scaffold(
+      backgroundColor: const Color(0xFF3B1E54),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 50,
+              const SizedBox(height: 40),
+              const CircleAvatar(
+                radius: 60,
                 backgroundImage: AssetImage('assets/profile.jpg'),
               ),
-              SizedBox(height: 20),
-              ProfileForm(),
-              Spacer(),
-              BottomNavBar(),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: ProfileForm(),
+              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFD4BEE4),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Recipes'),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: 'Camera'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const CameraPage()),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const RecipePage()),
+            );
+          }
+        },
       ),
     );
   }
 }
 
 class ProfileForm extends StatelessWidget {
+  const ProfileForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Color(0xFFD4BEE4),
-        borderRadius: BorderRadius.circular(10),
+        color: const Color(0xFFD4BEE4),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
@@ -49,11 +88,11 @@ class ProfileForm extends StatelessWidget {
           _buildTextField('Email'),
           _buildTextField('Number'),
           _buildTextField('Bio', maxLines: 3),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildButton('Cancel', Color(0xFF9B7EBD)),
+              _buildButton('Cancel', const Color(0xFF9B7EBD)),
               _buildButton('Save', Colors.white, textColor: Colors.black),
             ],
           ),
@@ -64,7 +103,7 @@ class ProfileForm extends StatelessWidget {
 
   Widget _buildTextField(String hint, {int maxLines = 1}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: TextField(
         maxLines: maxLines,
         decoration: InputDecoration(
@@ -82,15 +121,11 @@ class ProfileForm extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(
-    String text,
-    Color color, {
-    Color textColor = Colors.white,
-  }) {
+  Widget _buildButton(String text, Color color, {Color textColor = Colors.white}) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () {},
@@ -102,37 +137,11 @@ class ProfileForm extends StatelessWidget {
   }
 }
 
-class BottomNavBar extends StatelessWidget {
+class RecipePage extends StatelessWidget {
+  const RecipePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      color: Color(0xFFD4BEE4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-            icon: Icon(Icons.home, color: Colors.black),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.restaurant_menu, color: Colors.black),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.camera_alt, color: Colors.black),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.favorite, color: Colors.black),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.chat_bubble, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
+    return Container();
   }
 }

@@ -1,195 +1,217 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/profile_page.dart';
+import 'package:myapp/settingspage.dart';
+import 'package:myapp/camera_page.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
-      backgroundColor: const Color(0xFF3B1E54), // Dark purple background
+      key: _scaffoldKey,
+      backgroundColor: const Color(0xFF3B1E54),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.search, color: Colors.white),
-          onPressed: () {},
-        ),
         title: Text(
           "Chef Scale",
-          style: GoogleFonts.afacad(fontSize: 22, color: Colors.white),
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.search, color: Colors.white), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.notifications, color: Colors.white), onPressed: () {}),
         ],
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero Image with Tagline
-            Stack(
-              children: [
-                Image.asset(
-                  'assets/flour_background.jpg', // Replace with actual image
-                  width: double.infinity,
-                  height: 160,
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 20,
-                  child: Text(
-                    "Precision meets the Perfection",
-                    style: GoogleFonts.afacad(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      backgroundColor: Colors.black54,
-                    ),
-                  ),
-                ),
-              ],
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Color(0xFF3B1E54)),
+              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
-
-            const SizedBox(height: 20),
-
-            // Get Started Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Get Started !",
-                style: GoogleFonts.afacad(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+              },
             ),
-
-            const SizedBox(height: 10),
-
-            // Action Buttons
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GridView.count(
-                crossAxisCount: 4,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1,
-                children: [
-                  _buildActionButton(Icons.camera_alt, "Snap a photo"),
-                  _buildActionButton(Icons.upload, "Upload ingredients"),
-                  _buildActionButton(Icons.bookmark, "Saved Items"),
-                  _buildActionButton(Icons.settings, "Settings"),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // How it Works Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "How it works ?",
-                style: GoogleFonts.afacad(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // How it Works Cards
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildInfoCard("assets/snap_photo.jpg", "Snap a photo", "Capture ingredients effortlessly"),
-                  _buildInfoCard("assets/measure.jpg", "Get measurement", "Receive precise measures instantly"),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 30),
           ],
         ),
       ),
-
-      // Bottom Navigation Bar
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      "assets/header.png",
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 20,
+                    child: Text(
+                      "Precision meets Perfection",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        backgroundColor: Colors.black54,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Text(
+                "Get Started!",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage()));
+                    },
+                    child: _buildFeatureButton(Icons.camera_alt, "Snap a photo"),
+                  ),
+                  _buildFeatureButton(Icons.chat, "Chat"),
+                  GestureDetector(
+                    onTap: () {},
+                    child: _buildFeatureButton(Icons.upload, "Upload Ingredients"),
+                  ),
+                  _buildFeatureButton(Icons.bookmark, "Saved Items"),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Text(
+                "How It Works?",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 15),
+              SizedBox(
+                height: 220,
+                child: PageView.builder(
+                  itemCount: _howItWorksSteps.length,
+                  scrollDirection: Axis.horizontal,
+                  controller: PageController(viewportFraction: 0.85),
+                  itemBuilder: (context, index) {
+                    final step = _howItWorksSteps[index % _howItWorksSteps.length];
+                    return _buildHowItWorksCard(step['image']!, step['title']!, step['description']!);
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFD4BEE4), // Light purple background
+        backgroundColor: const Color(0xFFD4BEE4),
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black,
-        showUnselectedLabels: false,
+        unselectedItemColor: Colors.black87,
+        showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Recipes"),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
+        onTap: (index) {
+          if (index == 2) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage()));
+          }
+          if (index == 4) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+          }
+        },
       ),
     );
   }
 
-  // Function to build action buttons in grid
-  Widget _buildActionButton(IconData icon, String label) {
+  Widget _buildFeatureButton(IconData icon, String text) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircleAvatar(
-          backgroundColor: const Color(0xFFD4BEE4), // Light purple
-          radius: 28,
-          child: Icon(icon, color: Colors.black, size: 28),
+        Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: const Color(0xFFD4BEE4),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Icon(icon, size: 30, color: Colors.black),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 5),
         Text(
-          label,
+          text,
           textAlign: TextAlign.center,
-          style: GoogleFonts.afacad(fontSize: 12, color: Colors.white),
+          style: GoogleFonts.poppins(fontSize: 12, color: Colors.white),
         ),
       ],
     );
   }
 
-  // Function to build information cards
-  Widget _buildInfoCard(String imagePath, String title, String subtitle) {
+  Widget _buildHowItWorksCard(String imagePath, String title, String subtitle) {
     return Container(
-      width: 160,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      width: 280,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         color: Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            child: Image.asset(imagePath, height: 100, width: double.infinity, fit: BoxFit.cover),
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            child: Image.asset(imagePath, height: 130, width: double.infinity, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: GoogleFonts.afacad(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: GoogleFonts.afacad(fontSize: 12, color: Colors.black54),
-                ),
+                Text(title, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black)),
+                const SizedBox(height: 5),
+                Text(subtitle, style: GoogleFonts.poppins(fontSize: 12, color: Colors.black54)),
               ],
             ),
           ),
@@ -198,3 +220,11 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+final List<Map<String, String>> _howItWorksSteps = [
+  {"image": "assets/side1.png", "title": "Snap a Photo", "description": "Capture ingredients with one click."},
+  {"image": "assets/side2.png", "title": "Upload Ingredients", "description": "Manually add ingredients for accuracy."},
+  {"image": "assets/side3.png", "title": "Get Measurements", "description": "Receive precise measurements instantly."},
+  {"image": "assets/side4.png", "title": "Recipe Suggestions", "description": "Get smart recipe suggestions."},
+  {"image": "assets/side5.png", "title": "Save & Favorite", "description": "Save your favorite ingredients & recipes."},
+];

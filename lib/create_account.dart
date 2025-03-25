@@ -197,7 +197,6 @@ class CreateAccountPageState extends State<CreateAccountPage> {
       },
     );
 
-    // Ensure pickedDate is not null before updating the state
     if (pickedDate != null) {
       setState(() {
         _dobController.text =

@@ -9,9 +9,8 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF3B1E54), // Dark Purple Background
       body: Center(
-        // Wrap in Center to align everything in the middle
         child: Column(
-          mainAxisSize: MainAxisSize.min, // Shrinks column to fit its content
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -27,7 +26,7 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            // Placeholder for Logo (Replace with Image.asset if needed)
+            // Placeholder for Logo
             const Icon(Icons.search, size: 120, color: Color(0xFFD4BEE4)),
 
             const SizedBox(height: 40),
@@ -54,12 +53,12 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
 
-            // Sign In Button
+            // Sign In Button - Navigates to Sign In Page
             SizedBox(
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to Sign In Page
+                  Navigator.pushNamed(context, '/signin'); // Navigate to Sign In Page
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black, // Black Background
@@ -68,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     side: const BorderSide(
                       color: Color(0xFFD4BEE4),
-                    ), // Light Purple Border
+                    ),
                   ),
                 ),
                 child: Text(
