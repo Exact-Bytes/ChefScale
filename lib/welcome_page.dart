@@ -8,9 +8,9 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF3B1E54), // Dark Purple Background
-      body: Center( 
+      body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -53,7 +53,7 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
 
-            // Sign In Button - Navigates to HomePage
+            // Sign In Button - Navigates to Sign In Page
             SizedBox(
               width: 200,
               child: ElevatedButton(
