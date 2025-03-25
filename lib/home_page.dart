@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/profile_page.dart';
+import 'package:myapp/camera_page.dart';
 
 import 'profile_page.dart';
 
@@ -8,6 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       backgroundColor: const Color(0xFF3B1E54), // Dark Purple Background
       appBar: AppBar(
@@ -34,7 +37,26 @@ class HomePage extends StatelessWidget {
         ],
         leading: IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+        ),
+      ),
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF3B1E54),
+              ),
+              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings), title: const Text('Settings'), onTap: () {},
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -88,12 +110,23 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildFeatureButton(Icons.camera_alt, "Snap a photo"),
-                  _buildFeatureButton(Icons.upload, "Upload Ingredients"),
-                  _buildFeatureButton(Icons.bookmark, "Saved Items"),
-                  _buildFeatureButton(Icons.settings, "Settings"),
-                ],
-              ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage()));
+                      },
+                      child: _buildFeatureButton(Icons.camera_alt,
+                          "Snap a photo"),
+                    ),
+                    _buildFeatureButton(Icons.chat, "Chat"),
+                    GestureDetector(
+                      onTap: (){
+
+                      },
+                    child:  _buildFeatureButton(Icons.upload, "Upload Ingredients"),
+                    ),
+                    _buildFeatureButton(Icons.bookmark, "Saved Items"),
+                  ],
+                ),
 
               const SizedBox(height: 30),
 
@@ -162,6 +195,15 @@ class HomePage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
+          if(index == 2){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CameraPage(),
+              ),
+            );
+          }
+
           if (index == 4) {
             Navigator.push(
               context,
@@ -170,7 +212,7 @@ class HomePage extends StatelessWidget {
               ),
             );
           }
-          else {
+          else if(index != 2 && index != 4){
             // Handle other tab presses if needed.
           }
         },
