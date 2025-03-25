@@ -22,165 +22,188 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF683A7A), // Background color from image
       appBar: AppBar(
-        backgroundColor: const Color(0xFF683A7A),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white), // White back arrow
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            // Handle back button press
+            Navigator.pop(context);
           },
         ),
-        centerTitle: false,
-        title: Text(
-          'Login page', // Title from image
-          style: GoogleFonts.afacad(
-            color: Colors.white,
-            fontSize: 18,
-          ),
+      ),
+      backgroundColor: const Color(0xFF3B1E54), // Background color
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 100),
+            const Text(
+              'Sign in',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 30),
+            const SignInForm(),
+            const SizedBox(height: 20),
+            const Row(
+              children: <Widget>[
+                Expanded(
+                  child: Divider(color: Colors.white),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    'OR',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(color: Colors.white),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 55, // Same height as username/password fields
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.g_mobiledata, color: Colors.black, size: 35),
+                label: Text(
+                  'Continue with Google',
+                  style: GoogleFonts.afacad(color: Colors.black, fontSize: 16),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFD4BEE4), // Updated color
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 55, // Same height as username/password fields
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.phone, color: Colors.black, size: 35),
+                label: Text(
+                  'Continue with Number',
+                  style: GoogleFonts.afacad(color: Colors.black, fontSize: 16),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFD4BEE4), // Updated color
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Sign in',
-                style: GoogleFonts.afacad(
-                  color: Colors.white, // White text
-                  fontSize: 38,
-                  fontWeight: FontWeight.w500,
+    );
+  }
+}
+
+class SignInForm extends StatefulWidget {
+  const SignInForm({super.key});
+
+  @override
+  State<SignInForm> createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(
+            height: 55, // Consistent height
+            child: TextField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.black, // Black background
+                labelText: 'Username',
+                labelStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black, // Black background for text fields
+                border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.white, width: 1.5), // White border
+                  borderSide: const BorderSide(color: Colors.white), // White border
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: Colors.white), // White label
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-                  ),
-                  style: TextStyle(color: Colors.white), // White input text
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black, // Black background for text fields
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.white, width: 1.5), // White border
+                  borderSide: const BorderSide(color: Colors.white),
                 ),
-                child: const TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.white), // White label
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-                  ),
-                  style: TextStyle(color: Colors.white), // White input text
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
               ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle login logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Black button
-                    foregroundColor: Colors.white, // White text
-                    minimumSize: const Size(84, 32),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  child: Text(
-                    'Login',
-                    style: GoogleFonts.afacad(fontSize: 18),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                children: <Widget>[
-                  Expanded(child: Divider(color: Colors.white)), // White divider
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'OR',
-                      style: TextStyle(color: Colors.white), // White text
-                    ),
-                  ),
-                  Expanded(child: Divider(color: Colors.white)), // White divider
-                ],
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Handle Google login
-                },
-                icon: const Icon(
-                  Icons.g_mobiledata,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                label: Text(
-                  'continue with Google',
-                  style: GoogleFonts.afacad(
-                    color: Colors.black,
-                    fontSize: 24, // Adjusted font size
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white, // White button
-                  foregroundColor: Colors.black,
-                  minimumSize: const Size(double.infinity, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Handle phone number login
-                },
-                icon: const Icon(
-                  Icons.phone,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                label: Text(
-                  'continue with number',
-                  style: GoogleFonts.afacad(
-                    color: Colors.black,
-                    fontSize: 24, // Adjusted font size
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white, // White button
-                  foregroundColor: Colors.black,
-                  minimumSize: const Size(double.infinity, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 55, // Consistent height
+            child: TextField(
+              obscureText: true, // Hide password
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.black,
+                labelText: 'Password',
+                labelStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.white),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 45, // Smaller height for compact look
+            width: 100, // Smaller width
+            child: ElevatedButton(
+              onPressed: () {
+                // Handle sign in
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, // Black button
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: const Text(
+                'Login',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

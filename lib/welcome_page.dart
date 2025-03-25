@@ -58,7 +58,7 @@ class WelcomePage extends StatelessWidget {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home'); // Navigate to HomePage
+                  Navigator.pushNamed(context, '/signin'); // Navigate to Sign In Page
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black, // Black Background
