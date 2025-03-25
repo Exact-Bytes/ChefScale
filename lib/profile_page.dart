@@ -3,6 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page.dart';
 import 'package:myapp/camera_page.dart';
 
+void main() {
+  runApp(const ProfilePage());
+}
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -15,12 +19,10 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 40), // Spacing from top
-              Center(
-                child: CircleAvatar(
-                  radius: 60, // Increased size for better visibility
-                  backgroundImage: AssetImage('assets/pf.jpg'),
-                ),
+              const SizedBox(height: 40),
+              const CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/profile.jpg'),
               ),
               const SizedBox(height: 20),
               const Padding(
@@ -40,18 +42,9 @@ class ProfilePage extends StatelessWidget {
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: 'Recipes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Camera',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Recipes'),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: 'Camera'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         onTap: (index) {
@@ -128,11 +121,7 @@ class ProfileForm extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(
-    String text,
-    Color color, {
-    Color textColor = Colors.white,
-  }) {
+  Widget _buildButton(String text, Color color, {Color textColor = Colors.white}) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
@@ -153,6 +142,6 @@ class RecipePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(); // Placeholder for the Recipe page
+    return Container();
   }
 }

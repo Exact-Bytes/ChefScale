@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome_page.dart';
+import 'signin_page.dart';
 import 'home_page.dart';
 import 'create_account.dart';
 
@@ -17,10 +18,9 @@ class ChefScaleApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomePage(),
+        '/signin': (context) => const SignInPage(), // SignIn Page Route
         '/home': (context) => const HomePage(), // HomePage Route
-        '/create_account':
-            (context) =>
-                const CreateAccountPage(), // Define your CreateAccountPage
+        '/create_account': (context) => const CreateAccountPage(), // Create Account Page Route
       },
     );
   }
