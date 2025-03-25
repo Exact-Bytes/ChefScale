@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/profile_page.dart';
+import 'package:myapp/settingspage.dart';
 import 'package:myapp/camera_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -45,7 +46,13 @@ class HomePage extends StatelessWidget {
               child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
             ListTile(
-              leading: const Icon(Icons.settings), title: const Text('Settings'), onTap: () {},
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+              },
             ),
           ],
         ),
