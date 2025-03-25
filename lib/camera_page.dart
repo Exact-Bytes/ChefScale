@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/profile_page.dart';
+import 'package:myapp/measurement_page.dart';
 import 'package:myapp/home_page.dart';
 import 'dart:io';
 
@@ -138,7 +139,12 @@ class _CameraPageState extends State<CameraPage> {
 
           // See Measurement
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MeasurementPage()));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFD4BEE4),
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),

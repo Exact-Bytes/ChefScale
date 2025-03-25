@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/profile_page.dart';
 import 'package:myapp/camera_page.dart';
 
-import 'profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
