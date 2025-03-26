@@ -28,10 +28,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF3D1C55),
         elevation: 0,
-        title: Text(
-          "Settings",
-          style: GoogleFonts.afacad(color: Colors.white),
-        ),
+        title: Text("Settings", style: GoogleFonts.afacad(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -50,7 +47,9 @@ class SettingsPage extends StatelessWidget {
           Center(
             child: CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage("https://via.placeholder.com/150"), // Replace with actual profile image
+              backgroundImage: NetworkImage(
+                "https://via.placeholder.com/150",
+              ), // Replace with actual profile image
             ),
           ),
           SizedBox(height: 10),
@@ -115,15 +114,11 @@ class SettingsPage extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          title: Text(
-            title,
-            style: GoogleFonts.afacad(color: Colors.black),
-          ),
+          title: Text(title, style: GoogleFonts.afacad(color: Colors.black)),
           trailing: Icon(Icons.arrow_drop_down, color: Colors.black),
           onTap: () {},
         ),
-        if (showDivider)
-          Divider(color: Colors.black, thickness: 1),
+        if (showDivider) Divider(color: Colors.black, thickness: 1),
       ],
     );
   }
