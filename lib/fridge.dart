@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:myapp/home_page.dart';
+//import 'package:myapp/profile_page.dart';
 void main() {
   runApp(FridgeApp());
 }
@@ -125,6 +126,59 @@ class _FridgeScreenState extends State<FridgeScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFD4BEE4),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black87,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CameraPage(),
+              ),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfilePage(),
+
+
+              ),
+            );
+          } else if (index != 2 && index != 4) {
+            // Handle other tab presses if needed.
+          }
+        },
+      ),
     );
   }
 
@@ -189,6 +243,30 @@ class _FridgeScreenState extends State<FridgeScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CameraPage extends StatelessWidget {
+  const CameraPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Camera')),
+      body: const Center(child: Text('Camera Page')),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Profile')),
+      body: const Center(child: Text('Profile Page')),
     );
   }
 }

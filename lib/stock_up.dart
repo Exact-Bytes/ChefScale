@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:myapp/home_page.dart';
+import 'package:myapp/camera_page.dart';
 void main() {
   runApp(MyApp());
 }
@@ -65,8 +66,6 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
     ],
   };
 
-  Map<String, bool> checkedItems = {};
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,9 +75,13 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
         elevation: 0,
         title: Center(
           child: Text(
-            'To Buy',
+            'Stock up',
             style: GoogleFonts.afacad(color: Colors.white, fontSize: 30), // Applied Afacad font
           ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
@@ -159,6 +162,53 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFD4BEE4),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black87,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+        onTap: (index) {
+          if(index==0){
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          }
+          if (index == 2) {
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CameraPage(),
+              ),
+            );
+          }
+
+          if (index == 4) {
+           
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const ProfilePage(),
+            //   ),
+            // );
+          }
+          // Handle other tab presses if needed
+        },
+      ),
     );
   }
 
@@ -167,12 +217,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.deepPurple[200],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,31 +227,43 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
             style: GoogleFonts.afacad(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
-          Column(
-            children: items.map((item) {
-              return Row(
-                children: [
-                  Checkbox(
-                    value: item.checked,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        item.checked = value!;
-                      });
-                    },
-                    checkColor: Color(0xFF673AB7),
-                    activeColor: Colors.white,
-                    side: BorderSide(color: Colors.white),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
+          SizedBox(
+            height: 150, // Fixed height for scrolling content
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: items.map((item) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: item.checked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              item.checked = value!;
+                            });
+                          },
+                          checkColor: Colors.white,
+                          activeColor: Color(0xFF673AB7),
+                          side: BorderSide(color: Colors.white),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            item.name,
+                            style: GoogleFonts.afacad(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    item.name,
-                    style: GoogleFonts.afacad(color: Colors.white, fontSize: 16),
-                  ),
-                ],
-              );
-            }).toList(),
+                  );
+                }).toList(),
+              ),
+            ),
           ),
         ],
       ),

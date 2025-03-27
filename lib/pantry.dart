@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/fridge.dart';
+import 'package:myapp/home_page.dart';
 import 'package:myapp/stock_up.dart';
+// Uncomment these imports when you want to use them
+// import 'package:myapp/camera_page.dart'; // Import your CameraPage
+// import 'package:myapp/profile_page.dart'; // Import your ProfilePage
 
 void main() {
   runApp(MyApp());
@@ -29,14 +33,14 @@ class _PantryPageState extends State<PantryPage> {
     if (index == 0) {
       // Navigate to Fridge page
       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FridgeScreen()), // Navigate to FridgeScreen
+        context,
+        MaterialPageRoute(builder: (context) => FridgeScreen()), // Navigate to FridgeScreen
       );
     } else {
       // Navigate to Stock Up page
       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ShoppingListPage()), // Navigate to ShoppingListPage
+        context,
+        MaterialPageRoute(builder: (context) => ShoppingListPage()), // Navigate to ShoppingListPage
       );
     }
   }
@@ -91,6 +95,57 @@ class _PantryPageState extends State<PantryPage> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFD4BEE4),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black87,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()), // Navigate to HomePage
+            );
+          }
+          if (index == 2) {
+            // Uncomment this when you want to use the CameraPage
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const CameraPage(),
+            //   ),
+            // );
+          }
+
+          if (index == 4) {
+            // Uncomment this when you want to use the ProfilePage
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const ProfilePage(),
+            //   ),
+            // );
+          }
+          // Handle other tab presses if needed
+        },
       ),
     );
   }
