@@ -40,66 +40,154 @@ class _FridgeScreenState extends State<FridgeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF3B1E54), // Background color of the screen
+      backgroundColor: Color(0xFF442A65), // Background color of the screen
       appBar: AppBar(
-        title: Text("Fridge", style: GoogleFonts.afacad(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.transparent, // Appbar background color
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set back arrow color to white
+        ),
+        title: Center(
+          child: Text("Fridge", style: GoogleFonts.afacad(fontSize: 30, color: Colors.white)),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.notifications, color: Colors.white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.person, color: Colors.white),
             onPressed: () {},
           ),
         ],
-        backgroundColor: Color(0xFF3B1E54), // Appbar background color
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 1.2,
-          children: categories.entries.map((entry) {
-            return Card(
-              color: Color(0xFF9B7EBD), // Category box color
-              margin: EdgeInsets.symmetric(vertical: 6.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      entry.key,
-                      style: GoogleFonts.afacad(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[0], categories.values.toList()[0]),
                     ),
-                    Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: entry.value.map((item) {
-                          return CheckboxListTile(
-                            title: Text(item, style: GoogleFonts.afacad(color: Colors.white)),
-                            value: checkedItems[item] ?? false,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkedItems[item] = value ?? false;
-                              });
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
-                            activeColor: Colors.white,
-                            checkColor: Colors.purple,
-                          );
-                        }).toList(),
-                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[1], categories.values.toList()[1]),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }).toList(),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[2], categories.values.toList()[2]),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[3], categories.values.toList()[3]),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[4], categories.values.toList()[4]),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildCategory(categories.keys.toList()[5], categories.values.toList()[5]),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCategory(String title, List<String> items) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple[200], // Category box color
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.black),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.afacad(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            height: 150, // Fixed height for the scrolling area
+            width: double.infinity,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: items.map((item) {
+                  if (checkedItems[item] == null) {
+                    checkedItems[item] = false;
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0), // Add spacing between rows
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Checkbox(
+                          value: checkedItems[item],
+                          onChanged: (bool? value) {
+                            setState(() {
+                              checkedItems[item] = value ?? false;
+                            });
+                          },
+                          checkColor: Colors.white,
+                          activeColor: Color(0xFF673AB7),
+                          side: BorderSide(color: Colors.white),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            item,
+                            style: GoogleFonts.afacad(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
