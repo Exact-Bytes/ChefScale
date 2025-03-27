@@ -141,9 +141,11 @@ class _CameraPageState extends State<CameraPage> {
           ElevatedButton(
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MeasurementPage()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MeasurementPage(),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFD4BEE4),

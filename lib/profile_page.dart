@@ -42,9 +42,18 @@ class ProfilePage extends StatelessWidget {
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Recipes'),
-          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: 'Camera'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: 'Recipes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: 'Camera',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         onTap: (index) {
@@ -57,11 +66,6 @@ class ProfilePage extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const CameraPage()),
-            );
-          } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const RecipePage()),
             );
           }
         },
@@ -121,7 +125,11 @@ class ProfileForm extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(String text, Color color, {Color textColor = Colors.white}) {
+  Widget _buildButton(
+    String text,
+    Color color, {
+    Color textColor = Colors.white,
+  }) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
@@ -137,11 +145,3 @@ class ProfileForm extends StatelessWidget {
   }
 }
 
-class RecipePage extends StatelessWidget {
-  const RecipePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

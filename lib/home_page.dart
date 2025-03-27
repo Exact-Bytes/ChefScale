@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/profile_page.dart';
 import 'package:myapp/camera_page.dart';
-
+import 'package:myapp/recipe_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -47,13 +47,16 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF3B1E54),
+              decoration: BoxDecoration(color: Color(0xFF3B1E54)),
+              child: Text(
+                'Menu',
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
-              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
             ListTile(
-              leading: const Icon(Icons.settings), title: const Text('Settings'), onTap: () {},
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {},
             ),
           ],
         ),
@@ -110,22 +113,38 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage()));
-                      },
-                      child: _buildFeatureButton(Icons.camera_alt,
-                          "Snap a photo"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CameraPage(),
+                        ),
+                      );
+                    },
+                    child: _buildFeatureButton(
+                      Icons.camera_alt,
+                      "Snap a photo",
                     ),
-                    _buildFeatureButton(Icons.chat, "Chat"),
-                    GestureDetector(
-                      onTap: (){
-
-                      },
-                    child:  _buildFeatureButton(Icons.upload, "Upload Ingredients"),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RecipePage()),
+                      );
+                    },
+                    child: _buildFeatureButton(Icons.chat, "Chat"),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: _buildFeatureButton(
+                      Icons.upload,
+                      "Upload Ingredients",
                     ),
-                    _buildFeatureButton(Icons.bookmark, "Saved Items"),
-                  ],
-                ),
+                  ),
+                  _buildFeatureButton(Icons.bookmark, "Saved Items"),
+                ],
+              ),
 
               const SizedBox(height: 30),
 
@@ -188,30 +207,22 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.favorite),
             label: "Favorites",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
         onTap: (index) {
-          if(index == 2){
+          if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const CameraPage(),
-              ),
+              MaterialPageRoute(builder: (context) => const CameraPage()),
             );
           }
 
           if (index == 4) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilePage(),
-              ),
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
             );
-          }
-          else if(index != 2 && index != 4){
+          } else if (index != 2 && index != 4) {
             // Handle other tab presses if needed.
           }
         },
