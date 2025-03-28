@@ -111,7 +111,6 @@ flutter:
 
   assets:
     - assets/
-    - assets/chef-scale-87e1a0bae7ba.json
     - assets/header.png
     - assets/side1.png
     - assets/side2.png

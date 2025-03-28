@@ -12,30 +12,39 @@ class _RecipePageState extends State<RecipePage> {
   String recipeResult = "Enter an ingredient or dish to get a recipe";
 
   Future<void> fetchRecipe(String query) async {
-    const String apiKey = "AIzaSyDlFOo6r6EOy1aNNImlHQyLBZDKTZo93p4";
-    const String apiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateText?key=$apiKey";
+    const String apiKey =
+        "AIzaSyDlFOo6r6EOy1aNNImlHQyLBZDKTZo93p4"; // Replace with a secure method to store your API key
+    const String apiUrl =
+        "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateText?key=$apiKey";
 
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "prompt": {
+            "text":
+                "Suggest a recipe based on this user input: $query. Provide ingredients and step-by-step instructions.",
+          },
+        }),
+      );
 
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        "prompt": {
-          "text":
-              "Suggest a recipe based on this user input: $query. Provide ingredients and step-by-step instructions.",
-        },
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        setState(() {
+          recipeResult =
+              data['candidates'][0]['content']['parts'][0]['text'] ??
+              "No recipe found."; // Ensure safe access
+        });
+      } else {
+        setState(() {
+          recipeResult = "Failed to fetch recipe. Please try again.";
+        });
+      }
+    } catch (e) {
       setState(() {
         recipeResult =
-            data['candidates'][0]['content']['parts'][0]['text']; // Corrected JSON path
-      });
-    } else {
-      setState(() {
-        recipeResult = "Failed to fetch recipe. Error: ${response.body}";
+            "An error occurred: $e"; // More user-friendly error message
       });
     }
   }
