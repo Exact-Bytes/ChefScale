@@ -1,64 +1,100 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page.dart';
-//import 'package:myapp/profile_page.dart';
+import 'package:myapp/camera_page.dart';
 void main() {
-  runApp(FridgeApp());
+  runApp(MyApp());
 }
 
-class FridgeApp extends StatelessWidget {
-  const FridgeApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      home: ShoppingListPage(),
       theme: ThemeData.dark(),
-      home: FridgeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class FridgeScreen extends StatefulWidget {
-  const FridgeScreen({super.key});
+class ShoppingListPage extends StatefulWidget {
+  const ShoppingListPage({super.key});
 
   @override
-  _FridgeScreenState createState() => _FridgeScreenState();
+  _ShoppingListPageState createState() => _ShoppingListPageState();
 }
 
-class _FridgeScreenState extends State<FridgeScreen> {
-  Map<String, List<String>> categories = {
-    "Meat": ["chicken thighs", "ground beef", "lunch meat", "sausages"],
-    "Veggies": ["spinach", "cabbage", "lemons", "tomatoes", "avocado", "cauliflower"],
-    "Dairy": ["butter", "cheese", "sour cream", "yogurt"],
-    "Baking": ["flour", "choco chips", "cocoa powder", "dry yeast", "baking powder"],
-    "Drinks": ["fresh juice", "almond milk", "soft drinks", "water"],
-    "Freezer": ["ice cream", "meat", "chocolates"],
+class _ShoppingListPageState extends State<ShoppingListPage> {
+  // Data for the shopping list
+  Map<String, List<ShoppingItem>> shoppingList = {
+    'Meat': [
+      ShoppingItem(name: 'chicken thighs', checked: true),
+      ShoppingItem(name: 'eggs', checked: false),
+      ShoppingItem(name: 'lunch meat', checked: true),
+      ShoppingItem(name: 'shrimps', checked: false),
+    ],
+    'Veggies': [
+      ShoppingItem(name: 'spinach', checked: true),
+      ShoppingItem(name: 'pumpkin', checked: false),
+      ShoppingItem(name: 'corn', checked: false),
+      ShoppingItem(name: 'broccoli', checked: false),
+      ShoppingItem(name: 'lemons', checked: true),
+    ],
+    'Spices': [
+      ShoppingItem(name: 'turmeric', checked: false),
+      ShoppingItem(name: 'bay leaf', checked: false),
+      ShoppingItem(name: 'cloves', checked: false),
+      ShoppingItem(name: 'cinnamon', checked: false),
+    ],
+    'Fruits': [
+      ShoppingItem(name: 'apple', checked: false),
+      ShoppingItem(name: 'watermelon', checked: true),
+      ShoppingItem(name: 'pineapple', checked: false),
+      ShoppingItem(name: 'kiwi', checked: false),
+      ShoppingItem(name: 'guava', checked: true),
+    ],
+    'Main': [
+      ShoppingItem(name: 'rice', checked: false),
+      ShoppingItem(name: 'bread', checked: false),
+    ],
+    'Dairy': [
+      ShoppingItem(name: 'ice cream', checked: true),
+      ShoppingItem(name: 'salted butter', checked: false),
+      ShoppingItem(name: 'buttermilk', checked: false),
+    ],
   };
-
-  Map<String, bool> checkedItems = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF442A65), // Background color of the screen
+      backgroundColor: Color(0xFF442A65), // Changed background color
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // Appbar background color
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: Colors.white, // Set back arrow color to white
-        ),
         title: Center(
-          child: Text("Fridge", style: GoogleFonts.afacad(fontSize: 30, color: Colors.white)),
+          child: Text(
+            'Stock up',
+            style: GoogleFonts.afacad(color: Colors.white, fontSize: 30), // Applied Afacad font
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              // Handle notifications
+            },
           ),
           IconButton(
             icon: Icon(Icons.person, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              // Handle profile
+            },
           ),
         ],
       ),
@@ -74,14 +110,14 @@ class _FridgeScreenState extends State<FridgeScreen> {
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[0], categories.values.toList()[0]),
+                      child: _buildCategory(shoppingList.keys.toList()[0], shoppingList.values.toList()[0]),
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[1], categories.values.toList()[1]),
+                      child: _buildCategory(shoppingList.keys.toList()[1], shoppingList.values.toList()[1]),
                     ),
                   ),
                 ],
@@ -92,14 +128,14 @@ class _FridgeScreenState extends State<FridgeScreen> {
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[2], categories.values.toList()[2]),
+                      child: _buildCategory(shoppingList.keys.toList()[2], shoppingList.values.toList()[2]),
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[3], categories.values.toList()[3]),
+                      child: _buildCategory(shoppingList.keys.toList()[3], shoppingList.values.toList()[3]),
                     ),
                   ),
                 ],
@@ -110,14 +146,14 @@ class _FridgeScreenState extends State<FridgeScreen> {
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[4], categories.values.toList()[4]),
+                      child: _buildCategory(shoppingList.keys.toList()[4], shoppingList.values.toList()[4]),
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: _buildCategory(categories.keys.toList()[5], categories.values.toList()[5]),
+                      child: _buildCategory(shoppingList.keys.toList()[5], shoppingList.values.toList()[5]),
                     ),
                   ),
                 ],
@@ -133,14 +169,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: "Recipes",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
             label: "Recipes",
@@ -156,69 +185,64 @@ class _FridgeScreenState extends State<FridgeScreen> {
           ),
         ],
         onTap: (index) {
-          if (index == 0) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
-          } else if (index == 2) {
-            Navigator.push(
+          if(index==0){
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          }
+          if (index == 2) {
+             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const CameraPage(),
               ),
             );
-          } else if (index == 4) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilePage(),
-
-
-              ),
-            );
-          } else if (index != 2 && index != 4) {
-            // Handle other tab presses if needed.
           }
+
+          if (index == 4) {
+           
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const ProfilePage(),
+            //   ),
+            // );
+          }
+          // Handle other tab presses if needed
         },
       ),
     );
   }
 
-  Widget _buildCategory(String title, List<String> items) {
+  Widget _buildCategory(String title, List<ShoppingItem> items) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.deepPurple[200], // Category box color
+        color: Colors.deepPurple[200],
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.black),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: GoogleFonts.afacad(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            style: GoogleFonts.afacad(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           SizedBox(
-            height: 150, // Fixed height for the scrolling area
-            width: double.infinity,
+            height: 150, // Fixed height for scrolling content
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: items.map((item) {
-                  if (checkedItems[item] == null) {
-                    checkedItems[item] = false;
-                  }
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0), // Add spacing between rows
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Checkbox(
-                          value: checkedItems[item],
+                          value: item.checked,
                           onChanged: (bool? value) {
                             setState(() {
-                              checkedItems[item] = value ?? false;
+                              item.checked = value!;
                             });
                           },
                           checkColor: Colors.white,
@@ -230,7 +254,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
                         ),
                         Expanded(
                           child: Text(
-                            item,
+                            item.name,
                             style: GoogleFonts.afacad(color: Colors.white, fontSize: 16),
                           ),
                         ),
@@ -247,26 +271,9 @@ class _FridgeScreenState extends State<FridgeScreen> {
   }
 }
 
-class CameraPage extends StatelessWidget {
-  const CameraPage({super.key});
+class ShoppingItem {
+  String name;
+  bool checked;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Camera')),
-      body: const Center(child: Text('Camera Page')),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: const Center(child: Text('Profile Page')),
-    );
-  }
+  ShoppingItem({required this.name, required this.checked});
 }
