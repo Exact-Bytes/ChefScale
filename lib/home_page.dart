@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/inventory_mangement.dart';
 import 'package:myapp/profile_page.dart';
 import 'package:myapp/camera_page.dart';
 import 'package:myapp/recipe_page.dart';
@@ -200,7 +201,7 @@ class HomePage extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
-            label: "Recipes",
+            label: "Inventory",
           ),
           BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
           BottomNavigationBarItem(
@@ -221,6 +222,11 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MonthlyPlannerPage()),
             );
           } else if (index != 2 && index != 4) {
             // Handle other tab presses if needed.

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/camera_page.dart';
+import 'package:myapp/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,10 +30,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF3D1C55),
         elevation: 0,
-        title: Text(
-          "Settings",
-          style: GoogleFonts.afacad(color: Colors.white),
-        ),
+        title: Text("Settings", style: GoogleFonts.afacad(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -50,7 +49,9 @@ class SettingsPage extends StatelessWidget {
           Center(
             child: CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage("https://via.placeholder.com/150"), // Replace with actual profile image
+              backgroundImage: NetworkImage(
+                "https://via.placeholder.com/150",
+              ), // Replace with actual profile image
             ),
           ),
           SizedBox(height: 10),
@@ -101,12 +102,30 @@ class SettingsPage extends StatelessWidget {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: ""),
-        ],
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Inventory",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorite",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: "Chat"),
+        ],onTap: (index) {
+          if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const CameraPage()),
+            );
+          }
+        },
       ),
     );
   }
@@ -115,15 +134,11 @@ class SettingsPage extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          title: Text(
-            title,
-            style: GoogleFonts.afacad(color: Colors.black),
-          ),
+          title: Text(title, style: GoogleFonts.afacad(color: Colors.black)),
           trailing: Icon(Icons.arrow_drop_down, color: Colors.black),
           onTap: () {},
         ),
-        if (showDivider)
-          Divider(color: Colors.black, thickness: 1),
+        if (showDivider) Divider(color: Colors.black, thickness: 1),
       ],
     );
   }

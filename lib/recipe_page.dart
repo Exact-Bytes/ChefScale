@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:myapp/camera_page.dart';
+import 'package:myapp/profile_page.dart';
+
 class RecipePage extends StatefulWidget {
   @override
   _RecipePageState createState() => _RecipePageState();
@@ -121,16 +124,41 @@ class _RecipePageState extends State<RecipePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF3F2A52),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: const Color(0xFFD4BEE4),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black87,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Recipes",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
+        onTap: (index) {
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CameraPage()),
+            );
+          }
+
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          } else if (index != 2 && index != 4) {
+            // Handle other tab presses if needed.
+          }
+        },
       ),
     );
   }

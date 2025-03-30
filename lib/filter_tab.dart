@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/camera_page.dart';
+import 'package:myapp/fridge.dart';
+import 'package:myapp/home_page.dart';
+import 'package:myapp/profile_page.dart';
+import 'package:myapp/stock_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -24,12 +29,33 @@ class RecipeFilterScreen extends StatefulWidget {
   _RecipeFilterScreenState createState() => _RecipeFilterScreenState();
 }
 
+int _selectedIndex = 0;
+List<Widget> _widgetOptions = <Widget>[
+  HomePage(),
+  ShoppingListPage(),
+  CameraPage(),
+  RecipeFilterScreen(),
+  ProfilePage(),
+];
+
 class _RecipeFilterScreenState extends State<RecipeFilterScreen> {
   String? _clickedChipLabel;
   final Color backgroundColor = Color(0xFF30134B); // Dark purple background
   final Color chipColor = Color(0xFF9E7BB5); // Mauve chip color
   final Color textColor = Colors.white;
   final Color borderColor = Color(0xFFD3B8E0); // Light purple border
+
+  @override
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => _widgetOptions.elementAt(_selectedIndex),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +127,23 @@ class _RecipeFilterScreenState extends State<RecipeFilterScreen> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: "Planner",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
