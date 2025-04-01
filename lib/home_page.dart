@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/profile_page.dart';
 import 'package:myapp/settingspage.dart';
+import 'package:myapp/savedrecipespage.dart';
 import 'package:myapp/camera_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -109,11 +110,15 @@ class HomePage extends StatelessWidget {
                     child: _buildFeatureButton(Icons.camera_alt, "Snap a photo"),
                   ),
                   _buildFeatureButton(Icons.chat, "Chat"),
-                  GestureDetector(
-                    onTap: () {},
-                    child: _buildFeatureButton(Icons.upload, "Upload Ingredients"),
-                  ),
-                  _buildFeatureButton(Icons.bookmark, "Saved Items"),
+                  GestureDetector(                    
+                    child: _buildFeatureButton(Icons.upload, "Upload Ingredients"),),
+               
+                 
+                 GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedRecipesPage()));
+                    },
+                    child: _buildFeatureButton(Icons.bookmark, "Saved Items")),
                 ],
               ),
               const SizedBox(height: 30),
@@ -151,19 +156,26 @@ class HomePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Recipes"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.restaurant_menu), label: "Recipes"),
           BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Scan"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
         onTap: (index) {
           if (index == 2) {
+            // Camera Page
             Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage()));
+          } else if (index == 4) {// Profile Page
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
           }
-          if (index == 4) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+          else if(index == 3){
+              // Saved Recipes
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedRecipesPage()));
           }
-        },
+       },
+    
+
       ),
     );
   }
@@ -222,9 +234,29 @@ class HomePage extends StatelessWidget {
 }
 
 final List<Map<String, String>> _howItWorksSteps = [
-  {"image": "assets/side1.png", "title": "Snap a Photo", "description": "Capture ingredients with one click."},
-  {"image": "assets/side2.png", "title": "Upload Ingredients", "description": "Manually add ingredients for accuracy."},
-  {"image": "assets/side3.png", "title": "Get Measurements", "description": "Receive precise measurements instantly."},
-  {"image": "assets/side4.png", "title": "Recipe Suggestions", "description": "Get smart recipe suggestions."},
-  {"image": "assets/side5.png", "title": "Save & Favorite", "description": "Save your favorite ingredients & recipes."},
+  {
+    "image": "assets/side1.png",
+    "title": "Snap a Photo",
+    "description": "Capture ingredients with one click."
+  },
+  {
+    "image": "assets/side2.png",
+    "title": "Upload Ingredients",
+    "description": "Manually add ingredients for accuracy."
+  },
+  {
+    "image": "assets/side3.png",
+    "title": "Get Measurements",
+    "description": "Receive precise measurements instantly."
+  },
+  {
+    "image": "assets/side4.png",
+    "title": "Recipe Suggestions",
+    "description": "Get smart recipe suggestions."
+  },
+  {
+    "image": "assets/side5.png",
+    "title": "Save & Favorite",
+    "description": "Save your favorite ingredients & recipes."
+  },
 ];
