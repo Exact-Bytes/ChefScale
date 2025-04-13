@@ -54,7 +54,7 @@ class _CameraPageState extends State<CameraPage> {
 
   // Function to Process Image with Google Cloud Vision API
   Future<void> _processImage(File image) async {
-    final String apiKey = "AIzaSyBpQZqMCyCFlF4jGc_haJD_za3fU0USRUg"; // Replace with your API key
+    final String apiKey = ""; // Replace with your API key
     final String apiUrl = "https://vision.googleapis.com/v1/images:annotate?key=$apiKey";
 
     // Convert image to base64
